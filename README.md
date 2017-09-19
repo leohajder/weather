@@ -14,7 +14,8 @@ A local weather checker made as an assignment for [FreeCodeCamp](https://www.fre
 
 ## How does it work?
 
-An AJAX request gets a JSON response from FreeGeoIP containing the location data, and then another one gets a JSON response from OpenWeatherMap containing the weather data, with the location parameters passed to it. Register for free to get the required OpenWeatherMap app ID.  
-**NOTE:** Use http instead of https. 
+An AJAX request gets a JSON response from FreeGeoIP containing the location data, and then another one gets a JSON response from OpenWeatherMap containing the weather data, with the location parameters passed to it. Register for free to get the required OpenWeatherMap app ID.
 
-Live example on [CodePen](http://codepen.io/leohajder/full/OpVZqb).
+**NOTE:** You might have to prevent your AdBlocker from blocking FreeGeoIP if you get errors.
+   
+Live on [GitHub Pages](https://leohajder.github.io/weather).

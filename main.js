@@ -1,71 +1,71 @@
-$(function() {
-    var units = "metric";
-    var appID = "80a78670ec00c834d491f558f16673c4"; // register on openweathermap.org for free to get yours
+$(function () {
+    var openWeatherMap = {
+        units: "metric",
+        appID: "80a78670ec00c834d491f558f16673c4"
+    }; // register on openweathermap.org for free to get yours
 
     function getLocation() {
-        $.ajax({
-            type: "GET",
-            url: "http://freegeoip.net/json/",
-            success: function(response) {
-                if (response.city === null || response.city === "") {
-                    // sometimes freegeoip.net fails to get the city, so we will make another request with coordinates
-                    getWeatherByCoordinates(response, units, appID);
-                } else {
-                    // but openweathermap.org is more accurate when requesting by city
-                    getWeatherByCity(response, units, appID);
-                }
-            },
-            error: function() {
+        $.getJSON("https://freegeoip.net/json/?callback=?", function (response) {
+            if (response.city) {
+                getWeatherByCity(response);
+            } else if (response.latitude) {
+                getWeatherByCoordinates(response);
+            } else {
                 $("#out").text("Unable to reach freegeoip.net");
             }
         });
     }
 
-    function getWeatherByCity(data, units, appID) {
-        $.ajax({
-            type: "GET",
-            url: "http://api.openweathermap.org/data/2.5/weather?q=" + data.city + "&units=" + units + "&appid=" + appID,
-            success: function(response) {
-                displayWeather(response, units);
-            },
-            error: function(data, units, appID) {
-                $("#out").text("Unable to reach openweathermap.org");
+    function getWeatherByCity(data) {
+        $.getJSON("https://api.openweathermap.org/data/2.5/weather?" +
+            "q=" + data.city +
+            "&units=" + openWeatherMap.units +
+            "&appid=" + openWeatherMap.appID,
+            function (response) {
+                if (response.weather) {
+                    displayWeather(response);
+                } else {
+                    $("#out").text("Unable to reach openweathermap.org");
+                }
             }
-        });
+        );
     }
 
-    function getWeatherByCoordinates(data, units, appID) {
-        $.ajax({
-            type: "GET",
-            url: "http://api.openweathermap.org/data/2.5/weather?lat=" + data.latitude + "&lon=" + data.longitude + "&units=" + units + "&appid=" + appID,
-            success: function(response) {
-                displayWeather(response, units);
-            },
-            error: function() {
-                $("#out").text("Unable to reach openweathermap.org");
+    function getWeatherByCoordinates(data) {
+        $.getJSON("https://api.openweathermap.org/data/2.5/weather?" +
+            "lat=" + data.latitude +
+            "&lon=" + data.longitude +
+            "&units=" + openWeatherMap.units +
+            "&appid=" + openWeatherMap.appID,
+            function (response) {
+                if (response.weather) {
+                    displayWeather(response);
+                } else {
+                    $("#out").text("Unable to reach openweathermap.org");
+                }
             }
-        });
+        );
     }
 
-    function displayWeather(data, units) {
+    function displayWeather(data) {
         $("#city").text(data.name);
         $("#country").text(data.sys.country);
         $("#temperature").text(data.main.temp);
-        if (units === "metric") {
+        if (openWeatherMap.units === "metric") {
             $("#units").text("°C");
         } else {
             $("#units").text("°F");
         }
         $("#weather").text(data.weather[0].main);
         $("#description").text(data.weather[0].description);
-        $("#icon").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+        $("#icon").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
     }
 
-    $("#units").click(function() {
-        if (units === "metric") {
-            units = "imperial";
+    $("#units").click(function () {
+        if (openWeatherMap.units === "metric") {
+            openWeatherMap.units = "imperial";
         } else {
-            units = "metric";
+            openWeatherMap.units = "metric";
         }
         getLocation();
     });
