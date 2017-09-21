@@ -1,3 +1,5 @@
+$("#units").hide();
+
 $(function () {
     var openWeatherMap = {
         units: "metric",
@@ -49,15 +51,16 @@ $(function () {
 
     function displayWeather(data) {
         $("#city").text(data.name);
-        $("#country").text(data.sys.country);
-        $("#temperature").text(data.main.temp);
+        $("#country").text(", " + data.sys.country);
+        $("#temperature").text(Math.round(data.main.temp));
         if (openWeatherMap.units === "metric") {
             $("#units").text("°C");
         } else {
             $("#units").text("°F");
         }
+        $("#units").show();
         $("#weather").text(data.weather[0].main);
-        $("#description").text(data.weather[0].description);
+        $("#description").text(" - " + data.weather[0].description);
         $("#icon").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
     }
 
@@ -67,8 +70,13 @@ $(function () {
         } else {
             openWeatherMap.units = "metric";
         }
+
         getLocation();
+
+        $("#units").blur();
     });
 
     getLocation();
+
+    $('[data-toggle="tooltip"]').tooltip();
 });

@@ -11,9 +11,12 @@
     <div class="container text-center">
         <h1 class="page-header">AJAX Local Weather App</h1>
         <div id="out" class="jumbotron">
-            <p><span id="city"></span>, <span id="country"></span></p>
-            <p><span id="temperature" class="text-primary"></span> <button type="button" id="units" class="btn btn-primary"></button></p>
-            <p><span id="weather"></span> - <span id="description"></span></p>
+            <p><span id="city"></span><span id="country"></span></p>
+            <p>
+                <span id="temperature" class="text-primary"></span>
+                <button type="button" id="units" class="btn btn-primary" data-toggle="tooltip" title="Click to switch scales." data-placement="right"></button>
+            </p>
+            <p><span id="weather"></span><span id="description"></span></p>
             <img id="icon" src="">
         </div>
         <p>
