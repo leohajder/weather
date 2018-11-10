@@ -33,7 +33,7 @@ function getLocation() {
       getWeatherByCoordinates(response)
     }
   }).fail(function () {
-    $('#out').text('Unable to reach ipapi.co')
+    $('#out').text('Unable to reach ipapi.co. Try disabling AdBllocker.')
   })
 }
 
@@ -46,7 +46,7 @@ function getWeatherByCity(data) {
   }).done(function (response) {
     displayWeather(response)
   }).fail(function () {
-    $('#out').text('Unable to reach openweathermap.org')
+    $('#out').text('Unable to reach openweathermap.org. Try disabling AdBlocker.')
   })
 }
 
@@ -60,7 +60,7 @@ function getWeatherByCoordinates(data) {
   }).done(function (response) {
     displayWeather(response)
   }).fail(function () {
-    $('#out').text('Unable to reach openweathermap.org')
+    $('#out').text('Unable to reach openweathermap.org. Try disabling AdBlocker.')
   })
 }
 
