@@ -17,8 +17,4 @@ An AJAX request gets a JSON response from ipapi containing the location data. Th
 
 ## Note
 
-You might have to disable AdBlocker.
-
-## Preview
-
-Live on [GitHub Pages](https://leohajder.github.io/weather).
+No live preview because of OpenWeatherMap API key.
