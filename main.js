@@ -2,8 +2,8 @@
 
 var openWeatherMap = {
   units: 'metric',
-  appID: '80a78670ec00c834d491f558f16673c4'
-} // register on openweathermap.org for free to get yours
+  appID: '<register on openweathermap.org for free to get yours>'
+}
 
 $(function () {
   getLocation()
